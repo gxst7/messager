@@ -1,4 +1,4 @@
-package com.gostilo.messager.controllers;
+package com.gostilo.messager.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

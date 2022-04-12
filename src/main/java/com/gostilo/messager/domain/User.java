@@ -1,4 +1,4 @@
-package com.gostilo.messager.entity;
+package com.gostilo.messager.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

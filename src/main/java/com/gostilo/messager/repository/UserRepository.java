@@ -1,6 +1,6 @@
 package com.gostilo.messager.repository;
 
-import com.gostilo.messager.entity.User;
+import com.gostilo.messager.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

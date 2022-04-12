@@ -1,6 +1,6 @@
 package com.gostilo.messager;
 
-import com.gostilo.messager.entity.User;
+import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
