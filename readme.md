@@ -6,6 +6,7 @@ Web Project for TMS school.
 
 - Java Core
 - Spring Boot
+- Spring Data
 - Spring Security
 - Maven
 - Thymeleaf
