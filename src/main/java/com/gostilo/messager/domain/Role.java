@@ -1,2 +1,4 @@
-package com.gostilo.messager.domain;public enum Role {
+package com.gostilo.messager.domain;
+
+public enum Role {
 }
