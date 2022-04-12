@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -28,6 +29,14 @@ public class User {
 
     @Getter
     private String password;
+
+    public User(String firstName, String lastName, String email, String login, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
     @Override
     public String toString() {
