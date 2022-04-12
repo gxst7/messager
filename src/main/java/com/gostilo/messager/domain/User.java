@@ -25,23 +25,23 @@ public class User {
     private String email;
 
     @Getter
-    private String login;
+    private String username;
 
     @Getter
     private String password;
 
-    public User(String firstName, String lastName, String email, String login, String password) {
+    public User(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, firstName='%s', lastName='%s', email='%s', login='%s', password='%s']",
-                id, firstName, lastName, email, login, password);
+                "User [id=%d, firstName='%s', lastName='%s', email='%s', login='%s', password='%s']",
+                id, firstName, lastName, email, username, password);
     }
 }

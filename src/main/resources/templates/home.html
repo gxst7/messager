@@ -9,5 +9,44 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
+
+    <h2>Messages</h2>
+
+    <div>
+        <form method="post" action="/filter">
+            <input type="text" name="filter" placeholder="find by tag"/>
+            <br>
+            <button type="submit">Find</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <form method="post">
+            <input type="text" name="text" placeholder="Message"/>
+            <br>
+            <input type="text" name="tag" placeholder="Tag">
+            <br>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Text</th>
+                <th>Tag</th>
+            </tr>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.getId()}"/>
+                <td th:text="${message.getText()}"/>
+                <td th:text="${message.getTag()}"/>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
