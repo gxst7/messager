@@ -27,7 +27,7 @@ public class MessagerApplication {
 			repository.save(new User("Chloe", "O'Brian", "obrian@gmail.com", "chloe", "pass"));
 			repository.save(new User("Kim", "Bauer", "kbauer@gmail.com", "kim", "pass"));
 			repository.save(new User("David", "Palmer", "dpalmer@gmail.com", "david", "pass"));
-			repository.save(new User("Michelle", "Dessler", "mdessler@gmail.com", "dessler", "pass"));
+			repository.save(new User("Michelle", "Dessler", "mdessler@gmail.com", "michelle", "pass"));
 
 			// fetch all customers
 			log.info("Users found with findAll():");
