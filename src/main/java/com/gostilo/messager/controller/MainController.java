@@ -1,16 +1,22 @@
 package com.gostilo.messager.controller;
 
+import com.gostilo.messager.exception.UserNotFoundException;
 import com.gostilo.messager.domain.Message;
+import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.MessageRepository;
+import com.gostilo.messager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
 public class MainController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private MessageRepository messageRepository;
@@ -46,5 +52,26 @@ public class MainController {
         }
         model.addAttribute("messages", messages);
         return "home";
+    }
+
+    @GetMapping("/users")
+    List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @PostMapping("/users")
+    User newEmployee(@RequestBody User newEmployee) {
+        return userRepository.save(newEmployee);
+    }
+
+    @GetMapping("/users/{id}")
+    User getOne(@PathVariable Long id) throws UserNotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @DeleteMapping("/users/{id}")
+    void deleteEmployee(@PathVariable Long id) {
+        userRepository.deleteById(id);
     }
 }
