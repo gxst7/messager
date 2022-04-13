@@ -5,6 +5,8 @@
     <title>Home Page</title>
 </head>
 <body>
+    <a href="/home">Home</a>
+
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
@@ -23,7 +25,7 @@
     <br>
 
     <div>
-        <form method="post">
+        <form method="post" action="/home">
             <input type="text" name="text" placeholder="Message"/>
             <br>
             <input type="text" name="tag" placeholder="Tag">

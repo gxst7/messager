@@ -1,6 +1,2 @@
-package com.gostilo.messager.domain;
-
-public enum Role {
-    USER,
-    ADMIN
+package com.gostilo.messager.domain;public enum Role {
 }
