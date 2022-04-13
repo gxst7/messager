@@ -1,10 +1,14 @@
 package com.gostilo.messager.domain;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+@Data
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
@@ -12,30 +16,28 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
     private Long id;
 
-    @Getter
     private String firstName;
-
-    @Getter
     private String lastName;
-
-    @Getter
     private String email;
-
-    @Getter
     private String username;
-
-    @Getter
     private String password;
+    private boolean active;
 
-    public User(String firstName, String lastName, String email, String username, String password) {
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    public User(String firstName, String lastName, String email, String username, String password, boolean active, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.active = active;
+        this.roles = roles;
     }
 
     @Override
