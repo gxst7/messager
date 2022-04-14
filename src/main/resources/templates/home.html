@@ -42,11 +42,13 @@
                 <th>Id</th>
                 <th>Text</th>
                 <th>Tag</th>
+                <th>Author</th>
             </tr>
             <tr th:each="message : ${messages}">
                 <td th:text="${message.getId()}"/>
                 <td th:text="${message.getText()}"/>
                 <td th:text="${message.getTag()}"/>
+                <td th:text="${message.getAuthorName()}"/>
             </tr>
         </table>
     </div>
