@@ -23,9 +23,17 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String home(@RequestParam(value = "name", defaultValue = "World") String name, Model model) {
+    public String home(@RequestParam(required = false, defaultValue = "") String filter,
+                       @RequestParam(value = "name", defaultValue = "user") String name,
+                       Model model) {
         Iterable<Message> messages = messageRepository.findAll();
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepository.findByTag(filter);
+        } else {
+            messages = messageRepository.findAll();
+        }
         model.addAttribute("messages", messages);
+        model.addAttribute("filter", filter);
         return "home";
     }
 
@@ -33,22 +41,11 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String tag, Model model) {
+            @RequestParam String tag,
+            Model model) {
         Message message = new Message(text, tag, user);
         messageRepository.save(message);
         Iterable<Message> messages = messageRepository.findAll();
-        model.addAttribute("messages", messages);
-        return "home";
-    }
-
-    @PostMapping("/filter")
-    public String filter(@RequestParam String filter, Model model) {
-        Iterable<Message> messages;
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepository.findByTag(filter);
-        } else {
-            messages = messageRepository.findAll();
-        }
         model.addAttribute("messages", messages);
         return "home";
     }

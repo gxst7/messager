@@ -5,7 +5,7 @@
     <title>Home Page</title>
 </head>
 <body>
-    <a href="/home">Home</a>
+    <p><a href="/home">Home</a>     <a href="/user">User list</a></p>
 
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
     <form th:action="@{/logout}" method="post">
@@ -15,8 +15,8 @@
     <h2>Messages</h2>
 
     <div>
-        <form method="post" action="/filter">
-            <input type="text" name="filter" placeholder="find by tag"/>
+        <form method="get" action="/home">
+            <input type="text" name="filter" th:value="${filter}" placeholder="find by tag"/>
             <br>
             <button type="submit">Find</button>
         </form>
@@ -25,10 +25,12 @@
     <br>
 
     <div>
-        <form method="post" action="/home">
+        <form method="post" action="/home" enctype="multipart/form-data">
             <input type="text" name="text" placeholder="Message"/>
             <br>
             <input type="text" name="tag" placeholder="Tag">
+            <br>
+            <input type="file" name="file">
             <br>
             <button type="submit">Post</button>
         </form>
