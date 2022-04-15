@@ -52,6 +52,11 @@
                 <td th:text="${message.getTag()}"/>
                 <td th:text="${message.getAuthorName()}"/>
             </tr>
+            <tr>
+                <td th:if="${filename != null}">
+                    <img th:src="@{/img/{fname}(fname = ${filename})}">
+                </td>
+            </tr>
         </table>
     </div>
 </body>
