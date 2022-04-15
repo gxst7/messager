@@ -3,18 +3,19 @@ package com.gostilo.messager.controller;
 import com.gostilo.messager.domain.Message;
 import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.MessageRepository;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Controller
@@ -46,6 +47,13 @@ public class MainController {
         return "home";
     }
 
+//    @GetMapping(value = "/img/{imageUrl}")
+//    public @ResponseBody byte[] image(@PathVariable String imageUrl) throws IOException {
+//        String url = "/home/alexander-gostilo/IdeaProjects/messager/uploads/" + imageUrl;
+//        InputStream in = new FileInputStream(url);
+//        return IOUtils.toByteArray(in);
+//    }
+
     @PostMapping("/home")
     public String add(
             @AuthenticationPrincipal User user,
@@ -65,14 +73,13 @@ public class MainController {
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
-            file.transferTo(new File(resultFilename));
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
 
             message.setFilename(resultFilename);
         }
 
         messageRepository.save(message);
         Iterable<Message> messages = messageRepository.findAll();
-        model.addAttribute("filename", message.getFilename());
         model.addAttribute("messages", messages);
         return "home";
     }
