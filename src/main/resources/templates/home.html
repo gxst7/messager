@@ -41,13 +41,15 @@
     <div>
         <table>
             <tr>
-                <th>Id</th>
-                <th>Text</th>
+                <th>*</th>
+                <th>Message</th>
                 <th>Tag</th>
                 <th>Author</th>
             </tr>
             <tr th:each="message : ${messages}">
-                <td th:text="${message.getId()}"/>
+                <td th:if="${message.getAuthor().getAvatarPic() != null}">
+                    <img th:src="@{/img/{fname}(fname = ${message.getAuthor().getAvatarPic()})}" width="100px" height="100px">
+                </td>
                 <td th:text="${message.getText()}"/>
                 <td th:text="${message.getTag()}"/>
                 <td th:text="${message.getAuthorName()}"/>
