@@ -12,59 +12,61 @@
     <!--    begin of navbar -->
     <div th:insert="~{navbar :: nav}"></div>
     <!--    end of navbar   -->
+    <div class="container">
+        <div class = "row row-cols-auto">
 
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+            <div class = "col">
+                <div class="my-3">
+                    <form method="get" action="/home">
+                        <div><input type="text" name="filter" th:value="${filter}" placeholder="find by tag"/></div>
+                        <div class="mt-2 mb-2"><button class="btn btn-primary" type="submit">Find</button></div>
+                    </form>
+                </div>
 
-    <h2>Messages</h2>
+                <div>
+                    <form method="post" action="/home" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input class="col-sm-8" type="text" name="text" placeholder="Message"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="col-sm-8" type="text" name="tag" placeholder="Tag">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="custom-file col-sm-8">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01" name="file">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <div>
-        <form method="get" action="/home">
-            <input type="text" name="filter" th:value="${filter}" placeholder="find by tag"/>
-            <br>
-            <button type="submit">Find</button>
-        </form>
+            <div class="col">
+
+                <div th:each="message : ${messages}"class="card my-3 bg-light mb-3" style="width: 25rem;">
+                    <img class="card-img-top" th:src="@{/img/{fname}(fname = ${message.getFilename()})}" alt="">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${message.getText()}"></p>
+                    </div>
+                    <ul th:if="${message.getTag() != null && message.getTag().length() != 0}" class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${message.getTag()}"></li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">
+                            <img th:src="@{/img/{avaname}(avaname = ${message.getAuthor().getAvatarPic()})}" width="30px" height="30px">
+                        </a>
+                        <a th:text="${message.getAuthorName()}" href="#" class="card-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col"></div>
+        </div>
     </div>
 
-    <br>
-
-    <div>
-        <form method="post" action="/home" enctype="multipart/form-data">
-            <input type="text" name="text" placeholder="Message"/>
-            <br>
-            <input type="text" name="tag" placeholder="Tag">
-            <br>
-            <input type="file" name="file">
-            <br>
-            <button type="submit">Post</button>
-        </form>
-    </div>
-
-    <br>
-
-    <div>
-        <table>
-            <tr>
-                <th>Avatar</th>
-                <th>Message</th>
-                <th>Tag</th>
-                <th>Author</th>
-            </tr>
-            <tr th:each="message : ${messages}">
-                <td th:if="${message.getAuthor().getAvatarPic() != null}">
-                    <img th:src="@{/img/{avaname}(avaname = ${message.getAuthor().getAvatarPic()})}" width="100px" height="100px">
-                </td>
-                <td th:text="${message.getText()}"></td>
-                <td th:text="${message.getTag()}"></td>
-                <td th:text="${message.getAuthorName()}"></td>
-                <td th:if="${message.getFilename() != null}">
-                    <img th:src="@{/img/{fname}(fname = ${message.getFilename()})}" width="100px" height="100px">
-                </td>
-            </tr>
-        </table>
-    </div>
 
     <!--    begin of footer      -->
     <div th:insert="~{footer :: foot}"></div>

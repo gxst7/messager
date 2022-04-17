@@ -21,11 +21,11 @@ public class MessagerApplication {
 		SpringApplication.run(MessagerApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(UserRepository repository) {
-		return (args) -> {
-			// save a user
-			repository.save(new User("Chloe", "O'Brian", "obrian@gmail.com", "chloe", "pass", true, Set.of(Role.ADMIN, Role.USER)));
+//	@Bean
+//	public CommandLineRunner commandLineRunner(UserRepository repository) {
+//		return (args) -> {
+//			// save a user
+//			repository.save(new User("Chloe", "O'Brian", "obrian@gmail.com", "chloe", "pass", true, Set.of(Role.ADMIN, Role.USER)));
 //
 //			// fetch all users
 //			log.info("Users found with findAll():");
@@ -52,6 +52,6 @@ public class MessagerApplication {
 //			//  log.info(bauer.toString());
 //			// }
 //			log.info("");
-		};
-	}
+//		};
+//	}
 }

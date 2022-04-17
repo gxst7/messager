@@ -17,19 +17,39 @@
     <div th:insert="~{navbar :: nav}"></div>
     <!--    end of navbar   -->
 
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label>
+    <div class="row">
+        <div class="col"></div>
+
+        <div class = "col">
+            <div class="mt-5 mb-5"><h2>Sign In</h2></div>
+
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="usernameid">Username</label>
+                    <input type="text" class="form-control col-sm-10" name="username" id="usernameid" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="passwordid">Password</label>
+                    <input type="password" class="form-control col-sm-10" name="password" id="passwordid" placeholder="Enter password">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <button type="button" class="btn btn-outline-dark ml-2 mr-2"><a href="/registration">Sign Up</a></button>
+            </form>
         </div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
-    <a href="/registration">Sign Up</a>
+
+        <div class="col"></div>
+    </div>
 
     <!--    begin of footer      -->
     <div th:insert="~{footer :: foot}"></div>
