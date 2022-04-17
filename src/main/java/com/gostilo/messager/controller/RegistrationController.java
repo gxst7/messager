@@ -50,10 +50,13 @@ public class RegistrationController {
 
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            String defaultFilename = "user.png";
 
             file.transferTo(new File(uploadPath + "/" + resultFilename));
 
             user.setAvatarPic(resultFilename);
+        } else {
+            user.setAvatarPic("user.png");
         }
 
         user.setActive(true);
