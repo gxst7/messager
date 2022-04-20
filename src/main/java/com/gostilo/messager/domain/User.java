@@ -28,19 +28,19 @@ public class User implements UserDetails {
 
     private String avatarPic;
 
+    private String activationCode;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public User(String firstName, String lastName, String email, String username, String password, boolean active, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.active = active;
-        this.roles = roles;
     }
 
     @Override
