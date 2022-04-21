@@ -1,7 +1,9 @@
 package com.gostilo.messager.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
@@ -11,8 +13,10 @@ import javax.persistence.*;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
+    @NotBlank(message = "Please fill the text field")
+    @Length(max = 2048, message = "Too long")
     private String text;
 
     private String tag;
