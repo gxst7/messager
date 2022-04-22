@@ -1,16 +1,9 @@
 package com.gostilo.messager;
 
-import com.gostilo.messager.domain.Role;
-import com.gostilo.messager.domain.User;
-import com.gostilo.messager.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.Set;
 
 @SpringBootApplication
 public class MessagerApplication {
