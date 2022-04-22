@@ -29,20 +29,24 @@ public class MainController {
     private MessageRepository messageRepository;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model,
+                        @AuthenticationPrincipal User u) {
+        model.addAttribute("currentuser", u);
         return "index";
     }
 
     @GetMapping("/home")
-    public String home(@RequestParam(required = false, defaultValue = "") String filter,
+    public String home(@AuthenticationPrincipal User u,
+                       @RequestParam(required = false, defaultValue = "") String filter,
                        @RequestParam(value = "name", defaultValue = "user") String name,
                        Model model) {
-        Iterable<Message> messages = messageRepository.findAll();
+        Iterable<Message> messages;
         if (filter != null && !filter.isEmpty()) {
             messages = messageRepository.findByTag(filter);
         } else {
             messages = messageRepository.findAll();
         }
+        model.addAttribute("currentuser", u);
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
         return "home";
@@ -81,7 +85,7 @@ public class MainController {
 
             messageRepository.save(message);
         }
-
+        model.addAttribute("currentuser", user);
         Iterable<Message> messages = messageRepository.findAll();
         model.addAttribute("messages", messages);
         return "home";
