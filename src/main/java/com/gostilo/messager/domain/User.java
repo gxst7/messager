@@ -1,7 +1,5 @@
 package com.gostilo.messager.domain;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,12 +21,9 @@ public class User implements UserDetails {
 
     private String firstName;
     private String lastName;
-    @Email(message = "Email is not correct")
-    @NotBlank(message = "Email can not be an empty")
+
     private String email;
-    @NotBlank(message = "Username can not be an empty")
     private String username;
-    @NotBlank(message = "Password can not be an empty")
     private String password;
     @Transient
     private String password2;

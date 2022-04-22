@@ -3,7 +3,6 @@ package com.gostilo.messager.controller;
 import com.gostilo.messager.domain.Message;
 import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.MessageRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -52,7 +51,7 @@ public class MainController {
     @PostMapping("/home")
     public String add(
             @AuthenticationPrincipal User user,
-            @Valid Message message,
+            Message message,
             BindingResult bindingResult,
             Model model,
             @RequestParam("file") MultipartFile file) throws IOException {
