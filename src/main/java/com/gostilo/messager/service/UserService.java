@@ -111,6 +111,10 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public void saveUser(User user, String username, Map<String, String> form) {
         user.setUsername(username);
 

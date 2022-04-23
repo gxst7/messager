@@ -3,6 +3,7 @@ package com.gostilo.messager.controller;
 import com.gostilo.messager.domain.Message;
 import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.MessageRepository;
+import com.gostilo.messager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,6 +29,9 @@ public class MainController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/")
     public String index(Model model,
                         @AuthenticationPrincipal User u) {
@@ -47,6 +51,7 @@ public class MainController {
             messages = messageRepository.findAll();
         }
         model.addAttribute("currentuser", u);
+        model.addAttribute("listofusers", userRepository.findAll());
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
         return "home";

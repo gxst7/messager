@@ -69,8 +69,7 @@ public class UserController {
     @GetMapping("subscribe/{user}")
     public String subscribe(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user
-    ) {
+            @PathVariable User user) {
         userService.subscribe(currentUser, user);
 
         return "redirect:/user/page/" + user.getId();
@@ -79,10 +78,20 @@ public class UserController {
     @GetMapping("unsubscribe/{user}")
     public String unsubscribe(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user
-    ) {
+            @PathVariable User user) {
         userService.unsubscribe(currentUser, user);
 
         return "redirect:/user/page/" + user.getId();
+    }
+
+    @GetMapping("/search")
+    public String searchUser(@AuthenticationPrincipal User u,
+                             @RequestParam(required = false, defaultValue = "") String searched, Model model) {
+        User byUsername = userService.findByUsername(searched);
+        if (byUsername == null) {
+            return "redirect:/home";
+        }
+        model.getAttribute("searched");
+        return "redirect:/page/" + byUsername.getId();
     }
 }
