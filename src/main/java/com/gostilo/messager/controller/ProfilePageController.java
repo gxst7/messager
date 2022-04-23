@@ -23,7 +23,7 @@ public class ProfilePageController {
                                Model model) {
         model.addAttribute("user", user);
         model.addAttribute("currentuser", u);
-        model.addAttribute("messages", messageService.findByAuthor(u));
+        model.addAttribute("messages", messageService.findByAuthor(user));
         return "page";
     }
 }
