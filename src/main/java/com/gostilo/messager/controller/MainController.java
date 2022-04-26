@@ -45,7 +45,9 @@ public class MainController {
                        @RequestParam(required = false, defaultValue = "") String filter,
                        Model model) {
 
-        List<Message> messages = messageService.getMessagesFromSubscriptions(user, filter, userService);
+        User byUsername = userService.findByUsername(user.getUsername());
+
+        List<Message> messages = messageService.getMessagesFromSubscriptions(byUsername, filter, userService);
 
         model.addAttribute("currentuser", user);
         model.addAttribute("listofusers", userService.findAll());
