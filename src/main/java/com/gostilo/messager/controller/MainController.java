@@ -2,8 +2,8 @@ package com.gostilo.messager.controller;
 
 import com.gostilo.messager.domain.Message;
 import com.gostilo.messager.domain.User;
-import com.gostilo.messager.repository.MessageRepository;
-import com.gostilo.messager.repository.UserRepository;
+import com.gostilo.messager.service.MessageService;
+import com.gostilo.messager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,10 +28,10 @@ public class MainController {
     private String uploadPath;
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageService messageService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/")
     public String index(Model model,
@@ -40,20 +41,17 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String home(@AuthenticationPrincipal User u,
+    public String home(@AuthenticationPrincipal User user,
                        @RequestParam(required = false, defaultValue = "") String filter,
-                       @RequestParam(value = "name", defaultValue = "user") String name,
                        Model model) {
-        Iterable<Message> messages;
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepository.findByTag(filter);
-        } else {
-            messages = messageRepository.findAll();
-        }
-        model.addAttribute("currentuser", u);
-        model.addAttribute("listofusers", userRepository.findAll());
+
+        List<Message> messages = messageService.getMessagesFromSubscriptions(user, filter, userService);
+
+        model.addAttribute("currentuser", user);
+        model.addAttribute("listofusers", userService.findAll());
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
+
         return "home";
     }
 
@@ -88,11 +86,15 @@ public class MainController {
                 message.setFilename(resultFilename);
             }
 
-            messageRepository.save(message);
+            messageService.save(message);
         }
+
+        Iterable<Message> messages = messageService.getMessagesFromSubscriptions(user, "", userService);
+
+        model.addAttribute("listofusers", userService.findAll());
         model.addAttribute("currentuser", user);
-        Iterable<Message> messages = messageRepository.findAll();
         model.addAttribute("messages", messages);
+
         return "home";
     }
 }

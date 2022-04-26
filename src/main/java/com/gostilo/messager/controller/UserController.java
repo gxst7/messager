@@ -72,7 +72,7 @@ public class UserController {
             @PathVariable User user) {
         userService.subscribe(currentUser, user);
 
-        return "redirect:/user/page/" + user.getId();
+        return "redirect:/page/" + user.getId();
     }
 
     @GetMapping("unsubscribe/{user}")
@@ -81,7 +81,7 @@ public class UserController {
             @PathVariable User user) {
         userService.unsubscribe(currentUser, user);
 
-        return "redirect:/user/page/" + user.getId();
+        return "redirect:/page/" + user.getId();
     }
 
     @GetMapping("/search")

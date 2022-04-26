@@ -36,12 +36,12 @@
                         <h5 class="card-title" th:text="${user.getUsername()}"></h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Marks</li>
-                        <li class="list-group-item">Subscriptions</li>
-                        <li class="list-group-item">Subscribers</li>
+                        <li class="list-group-item">Subscriptions: <span th:text="${user.getSubscriptions().size()}"></span></li>
+                        <li class="list-group-item">Subscribers: <span th:text="${user.getSubscribers().size()}"></span></li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Subscribe</a>
+                        <a th:href="@{/user/subscribe/{id}(id=${user.getId()})}" class="card-link">Subscribe</a>
+                        <a th:href="@{/user/unsubscribe/{id}(id=${user.getId()})}" class="card-link">Unsubscribe</a>
                     </div>
                 </div>
             </div>

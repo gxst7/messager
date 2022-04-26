@@ -77,7 +77,6 @@
                             <img th:src="@{/img/{avaname}(avaname = ${message.getAuthor().getAvatarPic()})}" width="30px" height="30px">
                         </a>
                         <a th:text="${message.getAuthorName()}" th:href="@{/page/{id}(id=${message.getAuthor().getId()})}" class="card-link"></a>
-                        <a class="float-end" href="#">Mark</a>
                     </div>
                 </div>
             </div>

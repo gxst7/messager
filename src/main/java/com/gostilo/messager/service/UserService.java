@@ -1,5 +1,6 @@
 package com.gostilo.messager.service;
 
+import com.gostilo.messager.domain.Message;
 import com.gostilo.messager.domain.Role;
 import com.gostilo.messager.domain.User;
 import com.gostilo.messager.repository.UserRepository;
@@ -169,5 +170,9 @@ public class UserService implements UserDetailsService {
         user.getSubscribers().remove(currentUser);
 
         userRepository.save(user);
+    }
+
+    public boolean isSubscription(User user, User sub) {
+        return user.getSubscriptions().contains(sub);
     }
 }
